@@ -1,0 +1,235 @@
+{
+  "errors": [],
+  "generated_at": "2026-10-10T09:52:10Z",
+  "metrics": {
+    "./vulnerable/app_vulnerable.py": {
+      "CONFIDENCE.HIGH": 4,
+      "CONFIDENCE.LOW": 1,
+      "CONFIDENCE.MEDIUM": 5,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 4,
+      "SEVERITY.LOW": 1,
+      "SEVERITY.MEDIUM": 5,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 140,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 4,
+      "CONFIDENCE.LOW": 1,
+      "CONFIDENCE.MEDIUM": 5,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 4,
+      "SEVERITY.LOW": 1,
+      "SEVERITY.MEDIUM": 5,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 140,
+      "nosec": 0,
+      "skipped_tests": 0
+    }
+  },
+  "results": [
+    {
+      "code": "9 \n10 SECRET_KEY = \"supersecret123\"                 # VULN: hard-coded secret\n11 DEFAULT_ADMIN = (\"admin\", \"admin123\")         # VULN: default admin credentials\n",
+      "col_offset": 13,
+      "end_col_offset": 29,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 259,
+        "link": "https://cwe.mitre.org/data/definitions/259.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Possible hardcoded password: 'supersecret123'",
+      "line_number": 10,
+      "line_range": [
+        10
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html",
+      "test_id": "B105",
+      "test_name": "hardcoded_password_string"
+    },
+    {
+      "code": "15 def md5(s):                                    # VULN: fast, unsalted hash for passwords\n16     return hashlib.md5(s.encode()).hexdigest()\n17 \n",
+      "col_offset": 11,
+      "end_col_offset": 34,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 327,
+        "link": "https://cwe.mitre.org/data/definitions/327.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+      "line_number": 16,
+      "line_range": [
+        16
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html",
+      "test_id": "B324",
+      "test_name": "hashlib"
+    },
+    {
+      "code": "35         data = base64.b64encode(json.dumps({\"uid\": uid, \"user\": username, \"role\": role}).encode()).decode()\n36         return data + \".\" + hashlib.md5((SECRET_KEY + data).encode()).hexdigest()\n37 \n",
+      "col_offset": 28,
+      "end_col_offset": 69,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 327,
+        "link": "https://cwe.mitre.org/data/definitions/327.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+      "line_number": 36,
+      "line_range": [
+        36
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html",
+      "test_id": "B324",
+      "test_name": "hashlib"
+    },
+    {
+      "code": "40             data, sig = value.rsplit(\".\", 1)\n41             if hashlib.md5((SECRET_KEY + data).encode()).hexdigest() != sig:\n42                 return None\n",
+      "col_offset": 15,
+      "end_col_offset": 56,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 327,
+        "link": "https://cwe.mitre.org/data/definitions/327.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+      "line_number": 41,
+      "line_range": [
+        41
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html",
+      "test_id": "B324",
+      "test_name": "hashlib"
+    },
+    {
+      "code": "101                 # VULN: SQL injection (string formatting) + user enumeration\n102                 exists = db.execute(\"SELECT id FROM users WHERE username='%s'\" % username).fetchone()\n103                 if not exists:\n",
+      "col_offset": 36,
+      "end_col_offset": 78,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 102,
+      "line_range": [
+        102
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "105                     return self.send(401, '{\"error\":\"No such user\"}', \"application/json\")\n106                 row = db.execute(\"SELECT id, username, role FROM users WHERE username='%s' AND password_hash='%s'\"\n107                                  % (username, md5(password))).fetchone()\n108                 if not row:\n",
+      "col_offset": 33,
+      "end_col_offset": 114,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 106,
+      "line_range": [
+        106,
+        107
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "126             if method == \"GET\" and path.startswith(\"/notes/\"):\n127                 row = db.execute(\"SELECT title, body FROM notes WHERE id=%d\" % int(path[7:])).fetchone()  # VULN: IDOR\n128                 if not row:\n",
+      "col_offset": 33,
+      "end_col_offset": 76,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 127,
+      "line_range": [
+        127
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "133                 term = q.get(\"q\", \"\")\n134                 sql = \"SELECT id, title FROM notes WHERE owner=%d AND title LIKE '%%%s%%'\" % (me[\"uid\"], term)\n135                 rows = db.execute(sql).fetchall()                                    # VULN: SQL injection\n",
+      "col_offset": 22,
+      "end_col_offset": 90,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "LOW",
+      "issue_cwe": {
+        "id": 89,
+        "link": "https://cwe.mitre.org/data/definitions/89.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 134,
+      "line_range": [
+        134
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "145                 host = q.get(\"host\", \"\")\n146                 out = os.popen(\"ping -c 1 -W 1 \" + host + \" 2>&1\").read()            # VULN: command injection\n147                 return self.send(200, out, \"text/plain\")\n",
+      "col_offset": 22,
+      "end_col_offset": 66,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 78,
+        "link": "https://cwe.mitre.org/data/definitions/78.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+      "line_number": 146,
+      "line_range": [
+        146
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b605_start_process_with_a_shell.html",
+      "test_id": "B605",
+      "test_name": "start_process_with_a_shell"
+    },
+    {
+      "code": "167     ap = argparse.ArgumentParser()\n168     ap.add_argument(\"--host\", default=\"0.0.0.0\")      # VULN: listens on all interfaces\n169     ap.add_argument(\"--port\", type=int, default=8000)\n",
+      "col_offset": 38,
+      "end_col_offset": 47,
+      "filename": "./vulnerable/app_vulnerable.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 605,
+        "link": "https://cwe.mitre.org/data/definitions/605.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 168,
+      "line_range": [
+        168
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "vulnerable": {
+    "total": 10,
+    "HIGH": 4,
+    "MEDIUM": 5,
+    "LOW": 1,
+    "issues": [
+      {
+        "id": "B105",
+        "sev": "LOW",
+        "line": 10,
+        "text": "Possible hardcoded password: 'supersecret123'"
+      },
+      {
+        "id": "B324",
+        "sev": "HIGH",
+        "line": 16,
+        "text": "Use of weak MD5 hash for security. Consider usedforsecurity=False"
+      },
+      {
+        "id": "B324",
+        "sev": "HIGH",
+        "line": 36,
+        "text": "Use of weak MD5 hash for security. Consider usedforsecurity=False"
+      },
+      {
+        "id": "B324",
+        "sev": "HIGH",
+        "line": 41,
+        "text": "Use of weak MD5 hash for security. Consider usedforsecurity=False"
+      },
+      {
+        "id": "B608",
+        "sev": "MEDIUM",
+        "line": 102,
+        "text": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "id": "B608",
+        "sev": "MEDIUM",
+        "line": 106,
+        "text": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "id": "B608",
+        "sev": "MEDIUM",
+        "line": 127,
+        "text": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "id": "B608",
+        "sev": "MEDIUM",
+        "line": 134,
+        "text": "Possible SQL injection vector through string-based query construction."
+      },
+      {
+        "id": "B605",
+        "sev": "HIGH",
+        "line": 146,
+        "text": "Starting a process with a shell, possible injection detected, security issue."
+      },
+      {
+        "id": "B104",
+        "sev": "MEDIUM",
+        "line": 168,
+        "text": "Possible binding to all interfaces."
+      }
+    ],
+    "suppressed_nosec": 0
+  },
+  "secure": {
+    "total": 1,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 1,
+    "issues": [
+      {
+        "id": "B404",
+        "sev": "LOW",
+        "line": 12,
+        "text": "Consider possible security implications associated with the subprocess module."
+      }
+    ],
+    "suppressed_nosec": 0
+  }
+}

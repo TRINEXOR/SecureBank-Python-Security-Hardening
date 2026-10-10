@@ -1,0 +1,3 @@
+cryptography>=42
+# development / audit only:
+bandit>=1.7

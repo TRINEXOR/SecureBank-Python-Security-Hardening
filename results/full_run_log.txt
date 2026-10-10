@@ -1,0 +1,97 @@
+test_admin_access (tests.test_functional.TestHardenedFunctional.test_admin_access) ... ok
+test_download_legit_file (tests.test_functional.TestHardenedFunctional.test_download_legit_file) ... ok
+test_duplicate_registration (tests.test_functional.TestHardenedFunctional.test_duplicate_registration) ... ok
+test_login_required (tests.test_functional.TestHardenedFunctional.test_login_required) ... ok
+test_notes_roundtrip (tests.test_functional.TestHardenedFunctional.test_notes_roundtrip) ... ok
+test_ping_valid_host_does_not_crash (tests.test_functional.TestHardenedFunctional.test_ping_valid_host_does_not_crash) ... ok
+test_register_and_login (tests.test_functional.TestHardenedFunctional.test_register_and_login) ... ok
+test_search_finds_own_notes_only (tests.test_functional.TestHardenedFunctional.test_search_finds_own_notes_only) ... ok
+test_unknown_route (tests.test_functional.TestHardenedFunctional.test_unknown_route) ... ok
+test_admin_access (tests.test_functional.TestOriginalFunctional.test_admin_access) ... ok
+test_download_legit_file (tests.test_functional.TestOriginalFunctional.test_download_legit_file) ... ok
+test_duplicate_registration (tests.test_functional.TestOriginalFunctional.test_duplicate_registration) ... ok
+test_login_required (tests.test_functional.TestOriginalFunctional.test_login_required) ... ok
+test_notes_roundtrip (tests.test_functional.TestOriginalFunctional.test_notes_roundtrip) ... ok
+test_ping_valid_host_does_not_crash (tests.test_functional.TestOriginalFunctional.test_ping_valid_host_does_not_crash) ... /usr/lib/python3.12/subprocess.py:1127: ResourceWarning: subprocess 577 is still running
+  _warn("subprocess %s is still running" % self.pid,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/claude/sec/vulnerable/app_vulnerable.py:146: ResourceWarning: unclosed file <_io.TextIOWrapper name=6 encoding='UTF-8'>
+  out = os.popen("ping -c 1 -W 1 " + host + " 2>&1").read()            # VULN: command injection
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_register_and_login (tests.test_functional.TestOriginalFunctional.test_register_and_login) ... ok
+test_search_finds_own_notes_only (tests.test_functional.TestOriginalFunctional.test_search_finds_own_notes_only) ... ok
+test_unknown_route (tests.test_functional.TestOriginalFunctional.test_unknown_route) ... ok
+test_original_is_exploitable_and_hardened_is_not (tests.test_security.TestAttackSimulations.test_original_is_exploitable_and_hardened_is_not) ... /bin/sh: 1: ping: not found
+/usr/lib/python3.12/subprocess.py:1127: ResourceWarning: subprocess 596 is still running
+  _warn("subprocess %s is still running" % self.pid,
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/claude/sec/vulnerable/app_vulnerable.py:146: ResourceWarning: unclosed file <_io.TextIOWrapper name=6 encoding='UTF-8'>
+  out = os.popen("ping -c 1 -W 1 " + host + " 2>&1").read()            # VULN: command injection
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_audit_log_has_no_raw_newlines_or_passwords (tests.test_security.TestControls.test_audit_log_has_no_raw_newlines_or_passwords) ... ok
+test_cookie_flags (tests.test_security.TestControls.test_cookie_flags) ... ok
+test_csrf_token_bound_to_session (tests.test_security.TestControls.test_csrf_token_bound_to_session) ... ok
+test_csrf_token_required_and_checked (tests.test_security.TestControls.test_csrf_token_required_and_checked) ... ok
+test_download_allowlist (tests.test_security.TestControls.test_download_allowlist) ... ok
+test_encryption_at_rest (tests.test_security.TestControls.test_encryption_at_rest) ... ok
+test_error_page_hides_internals (tests.test_security.TestControls.test_error_page_hides_internals) ... unhandled error request_id=2c3d7c64
+Traceback (most recent call last):
+  File "/home/claude/sec/secure/app_secure.py", line 220, in route
+    self._route(method)
+  File "/home/claude/sec/secure/app_secure.py", line 323, in _route
+    rows = db.execute("SELECT id, title FROM notes WHERE owner=? AND title LIKE ? ESCAPE '\\'",
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: notes
+ok
+test_expired_session_rejected_by_server (tests.test_security.TestControls.test_expired_session_rejected_by_server) ... ok
+test_html_output_escaped (tests.test_security.TestControls.test_html_output_escaped) ... ok
+test_idor_returns_same_response_as_missing (tests.test_security.TestControls.test_idor_returns_same_response_as_missing) ... ok
+test_input_length_limits (tests.test_security.TestControls.test_input_length_limits) ... ok
+test_limiter_window_expiry (tests.test_security.TestControls.test_limiter_window_expiry) ... ok
+test_lockout_blocks_even_correct_password_then_other_users_unaffected (tests.test_security.TestControls.test_lockout_blocks_even_correct_password_then_other_users_unaffected) ... ok
+test_no_default_admin_without_configuration (tests.test_security.TestControls.test_no_default_admin_without_configuration) ... ok
+test_password_hash_is_salted_scrypt (tests.test_security.TestControls.test_password_hash_is_salted_scrypt) ... ok
+test_password_policy (tests.test_security.TestControls.test_password_policy) ... ok
+test_ping_input_validation (tests.test_security.TestControls.test_ping_input_validation) ... ok
+test_security_headers_on_every_response (tests.test_security.TestControls.test_security_headers_on_every_response) ... ok
+test_session_token_tamper_and_expiry (tests.test_security.TestControls.test_session_token_tamper_and_expiry) ... ok
+test_sql_metacharacters_are_data (tests.test_security.TestControls.test_sql_metacharacters_are_data) ... ok
+test_symlink_escape_blocked (tests.test_security.TestControls.test_symlink_escape_blocked) ... ok
+test_tampered_ciphertext_does_not_crash_or_leak (tests.test_security.TestControls.test_tampered_ciphertext_does_not_crash_or_leak) ... note 1 failed decryption
+ok
+test_username_validation (tests.test_security.TestControls.test_username_validation) ... ok
+test_weak_admin_password_rejected_at_startup (tests.test_security.TestControls.test_weak_admin_password_rejected_at_startup) ... APP_ENC_KEY not set: using an ephemeral encryption key (data unreadable after restart)
+/usr/lib/python3.12/traceback.py:241: ResourceWarning: unclosed <socket.socket fd=4, family=2, type=1, proto=0, laddr=('127.0.0.1', 43207)>
+  tb.tb_frame.clear()
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 32.745s
+
+OK
+/bin/sh: 1: ping: not found
+ID       Attack                                               ORIGINAL     HARDENED    
+VULN-01  SQL injection: authentication bypass                 EXPLOITED    blocked     
+VULN-02  SQL injection: UNION data extraction                 EXPLOITED    blocked     
+VULN-03  Weak password storage (unsalted MD5)                 EXPLOITED    blocked     
+VULN-04  Default administrator credentials                    EXPLOITED    blocked     
+VULN-05  Session forgery (hard-coded key / unsigned data)     EXPLOITED    blocked     
+VULN-06  Cross-site scripting (reflected + stored)            EXPLOITED    blocked     
+VULN-07  Path traversal in file download                      EXPLOITED    blocked     
+VULN-08  OS command injection                                 EXPLOITED    blocked     
+VULN-09  Insecure direct object reference (IDOR)              EXPLOITED    blocked     
+VULN-10  Cross-site request forgery (CSRF)                    EXPLOITED    blocked     
+VULN-11  Verbose error / stack-trace disclosure               EXPLOITED    blocked     
+VULN-12  No brute-force protection                            EXPLOITED    blocked     
+VULN-13  User enumeration via login messages                  EXPLOITED    blocked     
+VULN-14  Sensitive data stored in plaintext                   EXPLOITED    blocked     
+VULN-15  Log injection / forging                              EXPLOITED    blocked     
+VULN-16  Unbounded request size (DoS)                         EXPLOITED    blocked     
+VULN-17  Missing security headers / cookie flags              EXPLOITED    blocked     
+
+Exploitable: original 17/17, hardened 0/17
+vulnerable total=10  HIGH=4 MEDIUM=5 LOW=1
+secure     total=1  HIGH=0 MEDIUM=0 LOW=1

@@ -1,0 +1,176 @@
+{
+  "vulnerable": {
+    "VULN-01": {
+      "name": "SQL injection: authentication bypass",
+      "exploitable": true,
+      "evidence": "login(admin'--) -> 200; /admin -> 200"
+    },
+    "VULN-02": {
+      "name": "SQL injection: UNION data extraction",
+      "exploitable": true,
+      "evidence": "status 200, other users' rows LEAKED"
+    },
+    "VULN-03": {
+      "name": "Weak password storage (unsalted MD5)",
+      "exploitable": true,
+      "evidence": "stored=657a5d2ffd628848762bc22a... (plain MD5 of password: True)"
+    },
+    "VULN-04": {
+      "name": "Default administrator credentials",
+      "exploitable": true,
+      "evidence": "admin/admin123 -> 200"
+    },
+    "VULN-05": {
+      "name": "Session forgery (hard-coded key / unsigned data)",
+      "exploitable": true,
+      "evidence": "forged cookies -> /admin statuses [200, 401, 401]"
+    },
+    "VULN-06": {
+      "name": "Cross-site scripting (reflected + stored)",
+      "exploitable": true,
+      "evidence": "reflected payload unescaped: True; stored payload unescaped: True; CSP: none"
+    },
+    "VULN-07": {
+      "name": "Path traversal in file download",
+      "exploitable": true,
+      "evidence": "payload statuses [200, 200, 200, 200]; secret read: True"
+    },
+    "VULN-08": {
+      "name": "OS command injection",
+      "exploitable": true,
+      "evidence": "status 200; injected command output present: True"
+    },
+    "VULN-09": {
+      "name": "Insecure direct object reference (IDOR)",
+      "exploitable": true,
+      "evidence": "bob reads alice's note #1 -> 200"
+    },
+    "VULN-10": {
+      "name": "Cross-site request forgery (CSRF)",
+      "exploitable": true,
+      "evidence": "cross-origin POST without token -> 201"
+    },
+    "VULN-11": {
+      "name": "Verbose error / stack-trace disclosure",
+      "exploitable": true,
+      "evidence": "statuses [500, 500]; internals leaked [True, True]"
+    },
+    "VULN-12": {
+      "name": "No brute-force protection",
+      "exploitable": true,
+      "evidence": "10 guesses (correct is #8) -> statuses [401, 401, 401, 401, 401, 401, 401, 200, 401, 401]"
+    },
+    "VULN-13": {
+      "name": "User enumeration via login messages",
+      "exploitable": true,
+      "evidence": "known user: {\"error\":\"Wrong password\"} | unknown user: {\"error\":\"No such user\"}"
+    },
+    "VULN-14": {
+      "name": "Sensitive data stored in plaintext",
+      "exploitable": true,
+      "evidence": "raw DB body column: MARKER-secret-note-123..."
+    },
+    "VULN-15": {
+      "name": "Log injection / forging",
+      "exploitable": true,
+      "evidence": "forged audit line present: True"
+    },
+    "VULN-16": {
+      "name": "Unbounded request size (DoS)",
+      "exploitable": true,
+      "evidence": "300 KB body -> 201"
+    },
+    "VULN-17": {
+      "name": "Missing security headers / cookie flags",
+      "exploitable": true,
+      "evidence": "missing: content-security-policy, x-content-type-options, x-frame-options, HttpOnly, SameSite"
+    }
+  },
+  "secure": {
+    "VULN-01": {
+      "name": "SQL injection: authentication bypass",
+      "exploitable": false,
+      "evidence": "login(admin'--) -> 401; /admin -> no session"
+    },
+    "VULN-02": {
+      "name": "SQL injection: UNION data extraction",
+      "exploitable": false,
+      "evidence": "status 200, other users' rows not returned"
+    },
+    "VULN-03": {
+      "name": "Weak password storage (unsalted MD5)",
+      "exploitable": false,
+      "evidence": "stored=scrypt$16384$8$1$dp1QGZm... (plain MD5 of password: False)"
+    },
+    "VULN-04": {
+      "name": "Default administrator credentials",
+      "exploitable": false,
+      "evidence": "admin/admin123 -> 401"
+    },
+    "VULN-05": {
+      "name": "Session forgery (hard-coded key / unsigned data)",
+      "exploitable": false,
+      "evidence": "forged cookies -> /admin statuses [401, 401, 401]"
+    },
+    "VULN-06": {
+      "name": "Cross-site scripting (reflected + stored)",
+      "exploitable": false,
+      "evidence": "reflected payload unescaped: False; stored payload unescaped: False; CSP: default-src 'none'; frame-ance"
+    },
+    "VULN-07": {
+      "name": "Path traversal in file download",
+      "exploitable": false,
+      "evidence": "payload statuses [400, 400, 400, 400]; secret read: False"
+    },
+    "VULN-08": {
+      "name": "OS command injection",
+      "exploitable": false,
+      "evidence": "status 400; injected command output present: False"
+    },
+    "VULN-09": {
+      "name": "Insecure direct object reference (IDOR)",
+      "exploitable": false,
+      "evidence": "bob reads alice's note #1 -> 404"
+    },
+    "VULN-10": {
+      "name": "Cross-site request forgery (CSRF)",
+      "exploitable": false,
+      "evidence": "cross-origin POST without token -> 403"
+    },
+    "VULN-11": {
+      "name": "Verbose error / stack-trace disclosure",
+      "exploitable": false,
+      "evidence": "statuses [404, 200]; internals leaked [False, False]"
+    },
+    "VULN-12": {
+      "name": "No brute-force protection",
+      "exploitable": false,
+      "evidence": "10 guesses (correct is #8) -> statuses [401, 401, 401, 401, 401, 429, 429, 429, 429, 429]"
+    },
+    "VULN-13": {
+      "name": "User enumeration via login messages",
+      "exploitable": false,
+      "evidence": "known user: {\"error\": \"Invalid username or password\"} | unknown user: {\"error\": \"Invalid username or password\"}"
+    },
+    "VULN-14": {
+      "name": "Sensitive data stored in plaintext",
+      "exploitable": false,
+      "evidence": "raw DB body column: gAAAAABqygrIoDDr9k2qog8hDrsh..."
+    },
+    "VULN-15": {
+      "name": "Log injection / forging",
+      "exploitable": false,
+      "evidence": "forged audit line present: False"
+    },
+    "VULN-16": {
+      "name": "Unbounded request size (DoS)",
+      "exploitable": false,
+      "evidence": "300 KB body -> 413"
+    },
+    "VULN-17": {
+      "name": "Missing security headers / cookie flags",
+      "exploitable": false,
+      "evidence": "missing: nothing"
+    }
+  }
+}
